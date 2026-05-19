@@ -15,7 +15,7 @@ wsl --list --verbose
 ```
 确保 Ubuntu-26.04 为 `Running` 状态，且 Version 为 `2`。
 
-![image-20260516183247019](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516183247019.png)
+![image-20260516183247019](assets/image-20260516183247019.png)
 
 如果不是 WSL2，升级：
 ```powershell
@@ -34,7 +34,7 @@ whoami
 # 输出你的用户名，不是 root
 ```
 
-![image-20260516183410390](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516183410390.png)
+![image-20260516183410390](assets/image-20260516183410390.png)
 
 **日常开发原则**：
 
@@ -96,7 +96,7 @@ npm config set registry https://registry.npmmirror.com
 
 Ubuntu 代号是 **resolute**（对应 26.04 LTS）
 
-![image-20260515213235356](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515213235356.png)
+![image-20260515213235356](assets/image-20260515213235356.png)
 
 
 
@@ -125,29 +125,29 @@ source ~/.bashrc
 
 换的gitee的镜像源下下来了，但是一要安装又走的GitHub
 
-![image-20260515184206603](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515184206603.png)
+![image-20260515184206603](assets/image-20260515184206603.png)
 
 > 失败流程
 >
 > `nslookup github.com 114.114.114.114`找GitHub IP 
 >
-> ![image-20260515184529103](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515184529103.png)
+> ![image-20260515184529103](assets/image-20260515184529103.png)
 >
 > 然后IP 写入 WSL2 的 hosts 文件，把域名和能通的 IP 强制绑定
 >
-> ![image-20260515184829090](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515184829090.png)
+> ![image-20260515184829090](assets/image-20260515184829090.png)
 >
 > 结果安装也没用
 >
-> ![image-20260515185243935](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515185243935.png)
+> ![image-20260515185243935](assets/image-20260515185243935.png)
 
 后面改用gitee源码镜像（先把hosts 设置和代理都关了）
 
 `export NVM_SOURCE=https://gitee.com/mirrors/nvm.git && bash /tmp/nvm_install.sh`：环境变量 `NVM_SOURCE`指向 Gitee 的镜像仓库
 
-![image-20260515185340860](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515185340860.png)
+![image-20260515185340860](assets/image-20260515185340860.png)
 
-![image-20260515185512847](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515185512847.png)
+![image-20260515185512847](assets/image-20260515185512847.png)
 
 => Appending nvm source string to /home/vasant/.bashrc
 => Appending bash_completion source string to /home/vasant/.bashrc
@@ -176,7 +176,7 @@ echo 'export NVM_NODEJS_ORG_MIRROR=https://npmmirror.com/mirrors/node' >> ~/.bas
 source ~/.bashrc
 ```
 
-![image-20260515190517779](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515190517779.png)
+![image-20260515190517779](assets/image-20260515190517779.png)
 
 成功安装node.js
 
@@ -186,7 +186,7 @@ node -v
 npm -v
 ```
 
-![image-20260515190753173](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515190753173.png)
+![image-20260515190753173](assets/image-20260515190753173.png)
 
 ### 3.2 Python 与 venv
 
@@ -194,7 +194,7 @@ npm -v
 sudo apt install -y python3-venv python3-pip
 ```
 
-![image-20260515191433216](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515191433216.png)
+![image-20260515191433216](assets/image-20260515191433216.png)
 
 ### 3.3 Git（Ubuntu 自带，但确认版本）
 
@@ -203,7 +203,7 @@ sudo apt install -y git
 git --version
 ```
 
-![image-20260515200737296](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515200737296.png)
+![image-20260515200737296](assets/image-20260515200737296.png)
 
 ### 3.4 Claude Code CLI 安装
 
@@ -213,7 +213,7 @@ npm install -g @anthropic-ai/claude-code
 
 > **注意**：之前在 Windows cmd 用 npm 装的 Claude Code 不再使用，主力放在 WSL2 内。
 
-![image-20260515200921525](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515200921525.png)
+![image-20260515200921525](assets/image-20260515200921525.png)
 
 ### 3.5 配置 Claude Code 的模型供应商
 
@@ -243,7 +243,7 @@ WSLg 是较新版本 WSL2 的内置功能，无需额外安装。按以下步骤
 echo $DISPLAY
 ```
 
-![image-20260515201016390](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515201016390.png)
+![image-20260515201016390](assets/image-20260515201016390.png)
 
 **判断结果**：
 
@@ -257,7 +257,7 @@ curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-![image-20260515202312594](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515202312594.png)
+![image-20260515202312594](assets/image-20260515202312594.png)
 
 ### 4.3 安装 CC Switch
 
@@ -275,9 +275,9 @@ sudo dpkg -i CC-Switch-v{版本号}-Linux.deb
 sudo apt-get install -f
 ```
 
-![image-20260515211208715](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515211208715.png)
+![image-20260515211208715](assets/image-20260515211208715.png)
 
-![image-20260515211437807](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515211437807.png)
+![image-20260515211437807](assets/image-20260515211437807.png)
 
 ```bash
 # 检查安装是否成功
@@ -290,15 +290,15 @@ which cc-switch
 cc-switch
 ```
 
-![image-20260515211558733](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515211558733.png)
+![image-20260515211558733](assets/image-20260515211558733.png)
 
 稍等片刻，CC Switch 的图形界面窗口就会出现在 Windows 桌面上（通过 WSLg 显示）。
 
-![image-20260515214412166](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515214412166.png)
+![image-20260515214412166](assets/image-20260515214412166.png)
 
 开启应用级画面之后（余额是我claude code测试了一次）
 
-![image-20260516185327856](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516185327856.png)
+![image-20260516185327856](assets/image-20260516185327856.png)
 
 #### 出现方块：需要安装必要的中文字体
 
@@ -307,7 +307,7 @@ sudo apt update
 sudo apt install -y fonts-noto-cjk fonts-wqy-microhei fonts-wqy-zenhei
 ```
 
-![image-20260515212911542](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515212911542.png)
+![image-20260515212911542](assets/image-20260515212911542.png)
 
 **可选**：首次启动后，你可以将 `cc-switch` 添加到 WSL2 的启动脚本中，让它在每次打开终端时自动在后台运行：
 
@@ -327,7 +327,7 @@ sudo apt remove cc-switch
 
 wsl链接代理（好像没用）
 
-![image-20260515221320297](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515221320297.png)
+![image-20260515221320297](assets/image-20260515221320297.png)
 
 
 
@@ -348,7 +348,7 @@ wsl链接代理（好像没用）
 
 再重启
 
-![image-20260515224143196](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515224143196.png)
+![image-20260515224143196](assets/image-20260515224143196.png)
 
 刚发现公钥好像没整
 
@@ -372,7 +372,7 @@ git ls-remote https://github.com/user/repo.git  # HTTPS 方式
 
 测试与GitHub连接
 
-![image-20260515225728373](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260515225728373.png)
+![image-20260515225728373](assets/image-20260515225728373.png)
 
 > 第1跳: 192.168.3.1     - 你的路由器 (正常)
 > 第2跳: 192.168.18.1    - 可能是光猫/上级设备 (正常)
@@ -410,7 +410,7 @@ ssh-keygen -t ed25519 -C "工作邮箱@company.com" -f ~/.ssh/id_ed25519_work
 
 将各自的公钥（`~/.ssh/id_ed25519_xxx.pub`）添加到对应的 GitHub 账号 SSH Keys 设置中。
 
-![image-20260516190856248](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516190856248.png)
+![image-20260516190856248](assets/image-20260516190856248.png)
 
 ### 5.2 配置 SSH Config
 ```bash
@@ -439,7 +439,7 @@ ssh -T git@github.com-work
 
 就先创了一个personal
 
-![image-20260516122655116](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516122655116.png)
+![image-20260516122655116](assets/image-20260516122655116.png)
 
 ### 5.3 创建子 Git 配置文件
 
@@ -498,7 +498,7 @@ git config user.name   # 应输出工作姓名
 rm -rf ~/projects/personal/test ~/projects/work/test
 ```
 
-![image-20260516124119843](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516124119843.png)
+![image-20260516124119843](assets/image-20260516124119843.png)
 
 ubuntu里的git最新版本是2.54.0  [Git - Install for Linux](https://git-scm.com/install/linux)
 
@@ -547,14 +547,14 @@ git config user.email
 ### 6.1 安装 Remote-WSL 扩展
 在 Windows 的 VS Code 中安装 **Remote - WSL** 扩展（Microsoft 官方）。
 
-![image-20260516191554122](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516191554122.png)
+![image-20260516191554122](assets/image-20260516191554122.png)
 
 ### 6.2 使用方式
 在 WSL2 终端中任意目录`code .`即可进入
 
 VS Code 左下角会显示 `WSL: Ubuntu-26.04`，终端自动为 WSL2 bash。
 
-![image-20260516191241378](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516191241378.png)
+![image-20260516191241378](assets/image-20260516191241378.png)
 
 ---
 
@@ -562,7 +562,7 @@ VS Code 左下角会显示 `WSL: Ubuntu-26.04`，终端自动为 WSL2 bash。
 
 需要先整个虚拟环境
 
-![image-20260516124725712](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516124725712.png)
+![image-20260516124725712](assets/image-20260516124725712.png)
 
 ### miniforge
 
@@ -627,19 +627,19 @@ mamba install -n ml tensorflow -y
 >
 > **其他项目同理**，只需修改 `--name` 和 `--display-name`。
 
-![image-20260516164848520](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516164848520.png)
+![image-20260516164848520](assets/image-20260516164848520.png)
 
 ### 7.4 管理 Kernel
 
 检查kernel`python -m nb_conda_kernels list`
 
-![image-20260516161021112](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516161021112.png)
+![image-20260516161021112](assets/image-20260516161021112.png)
 
 还有一个命令**`jupyter kernelspec list`**
 
 但是没有上述效果，只有各自环境自己的kernel，不知道什么问题
 
-![image-20260516165401480](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516165401480.png)
+![image-20260516165401480](assets/image-20260516165401480.png)
 
 删除环境内的包：`mamba remove -n 环境名 环境包含的包`
 
@@ -715,7 +715,7 @@ docker compose up -d
    - 不在 Claude Code 会话中暴露高权限 Token
 5. **隐私意识**：代码和提示词会发送到模型 API（DeepSeek），机密逻辑需脱敏或考虑本地模型。
 
-![image-20260516171613549](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516171613549.png)
+![image-20260516171613549](assets/image-20260516171613549.png)
 
 ---
 
@@ -739,7 +739,7 @@ sudo apt install trash-cli
 trash-put --version
 ```
 
-![image-20260516173002182](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516173002182.png)
+![image-20260516173002182](assets/image-20260516173002182.png)
 
 最常用的几个命令：
 
@@ -773,7 +773,7 @@ trash-list
 ```
 输出包含完整路径和删除时间：
 
-![image-20260516182605332](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516182605332.png)
+![image-20260516182605332](assets/image-20260516182605332.png)
 
 #### 3. 恢复文件
 ```bash
@@ -781,7 +781,7 @@ trash-restore
 ```
 会列出所有被删文件
 
-![image-20260516182647807](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516182647807.png)
+![image-20260516182647807](assets/image-20260516182647807.png)
 
 然后输入对应数字 `0` 并回车，文件就原路恢复了。
 
@@ -797,7 +797,7 @@ trash-empty 7
 ```
 执行后，这些文件才被真正永久删除。
 
-![image-20260516182834951](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516182834951.png)
+![image-20260516182834951](assets/image-20260516182834951.png)
 
 ---
 
@@ -820,7 +820,7 @@ ls -la /home/vasant/.local/share/Trash/files
 ls -la /home/vasant/.local/share/Trash/info
 ```
 
-![image-20260516182736958](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260516182736958.png)
+![image-20260516182736958](assets/image-20260516182736958.png)
 
 2. 文件在外部或挂载的分区（如 `/mnt/c`）
 
