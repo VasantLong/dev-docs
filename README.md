@@ -11,6 +11,7 @@ WSL2 开发环境配置指南与技术文档集合。
 - [Zsh + Starship](zsh-starship.md) — Zsh + Starship + 插件，终端美化与跨平台统一配置
 - [PowerShell 7 升级](wsl2.md) — Win 端 PowerShell 版本升级
 - [Windows.old 清理](Windowsold.md) — 通过磁盘清理工具删除 Windows.old 释放磁盘空间
+- [Apple Mobile Device Support](Apple%20Mobile%20Device%20Support.md) - windows连接apple设备驱动
 
 ## 开发工具
 
@@ -25,7 +26,7 @@ WSL2 开发环境配置指南与技术文档集合。
 
 ## 环境
 
-| 项目 | 说明 |
-|------|------|
-| 系统 | WSL2 (Linux on Windows) |
+| 项目 | 说明                                 |
+| ---- | ------------------------------------ |
+| 系统 | WSL2 (Linux on Windows)              |
 | 用途 | 开发环境配置参考、故障排查、技术备忘 |

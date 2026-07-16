@@ -1,14 +1,12 @@
+# docker
+
 [【2026最新保姆级】Windows安装Docker Desktop完整教程：汉化+国内镜像+不占C盘+避坑指南_docker desktop安装教程-CSDN博客](https://blog.csdn.net/2303_80828979/article/details/160235606)
-
-
-
-
 
 安装exe
 
-https://docs.docker.com/desktop/setup/install/windows-install/
+<https://docs.docker.com/desktop/setup/install/windows-install/>
 
-# [Windows如何卸载并重装Docker Desktop，安装路径到f盘](https://www.cnblogs.com/yylucky666/p/18884384)
+## [Windows如何卸载并重装Docker Desktop，安装路径到f盘](https://www.cnblogs.com/yylucky666/p/18884384)
 
 ~~首先是要卸载干净，手动把 `C:/Program Files/Docker，C:\Users\Administrator\AppData\Local\Docker，C:\ProgramData\Docker` 的文件删除，发现没卸载干净，重装会提示 Exising installation is up to date，这是因为我本地之前安装过docker，注册表还没有清理干净。~~
 
@@ -18,12 +16,6 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 ~~将整个Docker Desktop组点击右键删~~
 
 **不要瞎删啊！！！虽然也是不知道是动注册表了还是啥，出现 0x800f0915只能拿win11官方iso镜像覆盖安装了。。。**
-
-
-
-
-
-
 
 使用命令安装
 
@@ -41,19 +33,17 @@ mklink /j C:\Users\Administrator\AppData\Local\Docker\wsl "E:\Docker\wsl"
 
 3.打开安装程序，重新安装
 
-## 前置:cpu虚拟化
+### 前置:cpu虚拟化
 
 ![image-20260513153311146](assets/image-20260513153311146.png)
 
-
-
-## [前置：WSL+ubuntu安装](https://blog.csdn.net/Natsuago/article/details/145594631?spm=1001.2014.3001.5501)
+### [前置：WSL+ubuntu安装](https://blog.csdn.net/Natsuago/article/details/145594631?spm=1001.2014.3001.5501)
 
 额外参考[WSL 完全指南：从安装到进阶，解决常见问题_get-service : 找不到任何服务名称为“lxssmanager”的服务。-CSDN博客](https://blog.csdn.net/2503_91821476/article/details/152045626)
 
 `wsl --install` `wsl --update`全失败：
 
-```
+```pwsh
 wsl --install
 无法从“https://raw.githubusercontent.com/microsoft/WSL/master/distributions/DistributionInfo.json”提取列表分发。与服务器的连接被重置
 错误代码: Wsl/InstallDistro/0x80072eff
@@ -62,23 +52,19 @@ wsl --install
 错误代码: Wsl/UpdatePackage/0x80072eff
 ```
 
+于是手动下载github release：<https://github.com/microsoft/WSL/releases>
 
-
-于是手动下载github release：https://github.com/microsoft/WSL/releases
-
-​	还有一种`wsl --update --web-download`直接走GitHub release
-
-
+​ 还有一种`wsl --update --web-download`直接走GitHub release
 
 [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/releases/)离线ubuntu安装
 
 [Index of /ubuntu-releases/24.04/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror](https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/24.04/)
 
+### 下载完ubuntu离线安装包.wsl后导入
 
-
-### 下载完ubuntu离线安装包.wsl后导入：
-
+```pwsh
 wsl --import Ubuntu-24.04 D:\wsl\ubuntu24 D:\path\to\your\ubuntu-24.04-wsl-amd64.wsl --version 2
+```
 
 - `Ubuntu-24.04`：给这个 WSL 发行版起的名称（可自定义）  
 - `D:\wsl\ubuntu24`：实际存放 WSL 系统文件的路径  
@@ -93,8 +79,10 @@ wsl --import Ubuntu-24.04 D:\wsl\ubuntu24 D:\path\to\your\ubuntu-24.04-wsl-amd64
 
 启动(并初始化 Ubuntu)：`wsl -d Ubuntu-26.04`
 
+```pwsh
 (base) PS C:\Users\lenovo> wsl -d Ubuntu-26.04
 root@LAPTOP-PGIP7SFO:/mnt/c/Users/lenovo#
+```
 
 ### ubuntu添加普通用户
 
@@ -131,20 +119,17 @@ root@LAPTOP-PGIP7SFO:/mnt/c/Users/lenovo# usermod -aG sudo vasant
     Ubuntu-26.04      Stopped         2
 ```
 
-###  WSL重启
+### WSL重启
 
 `wsl --shutdown`
 
-
-
-
-```
+```pwsh
 # 1. 启用 WSL 功能
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 ```
 
+### WSL 配置：减少内存占用
 
-###  WSL 配置：减少内存占用
 会遇到Vmmem在WSL运行时内存占用过高问题
 
 在 `C:\Users\你的用户名\.wslconfig` 文件中配置：
@@ -161,19 +146,17 @@ pageReporting = false #不允许内存回收
 
 配置后运行`wsl --shutdown`重启
 
-
-
 ### 自定义docker安装路径:直接用命令移动
+
 - Docker Desktop 主程序很小（约1GB），必须装在 C 盘
 - 真正占用空间的是 **WSL 数据、镜像、容器**，这些可以移到 D 盘
 - 通过符号链接欺骗系统，实现变相安装到 D 盘
 
-
-
 如果你还没安装，按这个流程：
 
 1. **先创建 D 盘目标文件夹**：
-   ```
+
+   ```txt
    D:\Docker\Data
    D:\Docker\WSL
    ```
@@ -208,7 +191,7 @@ pageReporting = false #不允许内存回收
    $wslConfig | Out-File -FilePath "$env:USERPROFILE\.wslconfig" -Encoding utf8
    ```
 
-​	运行过程：
+​ 运行过程：
 
 ```powershell
 (base) PS C:\Users\lenovo> # 移动 AppData 中的 Docker 目录
@@ -278,11 +261,7 @@ d-----         2026/5/13     23:53                log
 -a----         2026/5/13     23:53            943 install-log.txt
 ```
 
-
-
-
-
-4. **启动 Docker Desktop**，它会自动在 D 盘创建数据
+1. **启动 Docker Desktop**，它会自动在 D 盘创建数据
 
 ```powershell
 # 检查 WSL 发行版位置
@@ -297,10 +276,6 @@ dir $env:LOCALAPPDATA\Docker
 - C 盘仍会占用约 1GB 的主程序空间，这是无法避免的
 - 镜像、容器、WSL 虚拟磁盘等大头数据会在 D 盘
 - 如果之前遇到过 WSL 错误，记得先修复（启动 LxssManager 服务）
-
-
-
-
 
 ## 安装docker desktop(覆盖安装前安在d盘了)
 
@@ -339,13 +314,11 @@ Installs Docker Desktop
 (base) PS D:\Edge> .\"Docker Desktop Installer.exe" install --installation-dir="D:\Docker"
 ```
 
-
-
 ![image-20260513143916901](assets/image-20260513143916901.png)
 
 结果安装失败：
 
-```
+```cmd
 Component Docker.Installer.EnableFeaturesAction failed: Failed to install features with exit code 14098: 
 部署映像服务和管理工具
 版本: 10.0.26100.1150
@@ -375,8 +348,6 @@ Component Docker.Installer.EnableFeaturesAction failed: Failed to install featur
 
 ```
 
-
-
 检查并修复系统文件
 
 ```powershell
@@ -390,7 +361,7 @@ Component Docker.Installer.EnableFeaturesAction failed: Failed to install featur
 
 使用 DISM 修复组件存储（需要联网）
 
-```powershell 
+```powershell
 (base) PS C:\Users\lenovo> DISM /Online /Cleanup-Image /RestoreHealth
 
 部署映像服务和管理工具
@@ -438,8 +409,6 @@ C:\Users\lenovo>DISM /Online /Cleanup-Image /RestoreHealth
 
 好家伙都是亲人们[Windows系统修复 Dism修复卡在62.3% - 哔哩哔哩](https://www.bilibili.com/opus/793662935204364310)真的是联想通病吗。。。
 
-
-
 再开安全模式试一下......可否有神医救一下啊
 
 ```cmd
@@ -463,7 +432,7 @@ C:\Users\lenovo>DISM /Online /Cleanup-Image /RestoreHealth
 
 再先下载[win11 iso镜像](https://www.microsoft.com/zh-cn/software-download/windows11)作为修复源试一下：
 
-```
+```cmd
 DISM /Online /Cleanup-Image /RestoreHealth /Source:D:\Edge\Win11_25H2_Chinese_Simplified_x64_v2\sources\install.wim:4 /LimitAccess
 ```
 
@@ -475,7 +444,7 @@ DISM /Online /Cleanup-Image /RestoreHealth /Source:D:\Edge\Win11_25H2_Chinese_Si
 
 安装选项修改成不是现在
 
-**神医！！！安全下车但是wsl和ubuntu好像整c盘里了，需要重新迁移**
+<b>神医！！！安全下车但是wsl和ubuntu好像整c盘里了，需要重新迁移</b>
 
 docker desktop安装过程中的弹窗 估计是之前powershell的命令还在生效，但是wsl和ubuntu不在d盘了
 
@@ -549,6 +518,7 @@ Remove-Item "D:\Docker\WSL\docker-desktop.tar"
 ```
 
 ### Docker 国内镜像
+
 deamon.json配置：
 
 ```json
@@ -582,18 +552,16 @@ deamon.json配置：
 
 > 这对频繁构建镜像的环境很有用，防止 `/var/lib/docker` 无限膨胀。
 
-2. `experimental` (实验功能开关)
+1. `experimental` (实验功能开关)
 
 - **`false`**
   关闭 Docker Engine 的实验性功能。
   设为 `true` 可开启一些不稳定、未来可能变更的特性（如 `docker build --squash`、`docker checkpoint` 等）。
   生产环境通常设为 `false`。
 
-3. `registry-mirrors` (镜像加速器列表)
+1. `registry-mirrors` (镜像加速器列表)
 
 Docker Hub 拉取镜像时，优先使用这里配置的国内/第三方镜像代理，提升下载速度。
-
-
 
 *镜像源：轩辕的免费版用着说Error response from daemon: unable to fetch descriptor (sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11) which reports content size of zero: invalid argument，就换掉了*
 
@@ -622,17 +590,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
-
-
-
-
 5.14.2.03 干不动了。。。。总算是安完了
-
-
-
-
-
-
 
 ---
 

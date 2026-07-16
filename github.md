@@ -1,4 +1,4 @@
-https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port
+<https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port>
 
 在github上连接ssh
 
@@ -8,14 +8,12 @@ https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the
 
 要在 SSH 配置文件中设置此行为，请在 `~/.ssh/config` 编辑该文件，并添加以下部分：
 
-```text
+```cfg
 Host github.com
     Hostname ssh.github.com
     Port 443
     User git
 ```
-
-
 
 构建config文件：txt保存 重命名config.config 删除.config保存
 
@@ -36,14 +34,14 @@ ssh-agent bash
 1. 创建多个账户配置文件
    git bash输入以下命令创建user文件：
 
-    ```bash
-    $ touch ~/.gitconfig-user1
-    $ touch ~/.gitconfig-user2
-    ```
+   ```bash
+   touch ~/.gitconfig-user1
+   touch ~/.gitconfig-user2
+   ```
 
 2. 打开”~/.gitconfig-user1″文件，输入以下内容：
 
-   ```
+   ```cfg
    [user]
        name = User1
        email = user1@example.com
@@ -51,16 +49,16 @@ ssh-agent bash
 
 3. 在C:/Users/lenovo/.gitconfig中配置：
 
-    ```cmd
-    [includeIf "gitdir:/home/yourusername/path/to/your/repo1/"]
-        path = /home/yourusername/.gitconfig-user1
-    [includeIf "gitdir:/home/yourusername/path/to/your/repo2/"]
-        path = /home/yourusername/.gitconfig-user2
-    ```
+   ```cfg
+   [includeIf "gitdir:/home/yourusername/path/to/your/repo1/"]
+       path = /home/yourusername/.gitconfig-user1
+   [includeIf "gitdir:/home/yourusername/path/to/your/repo2/"]
+       path = /home/yourusername/.gitconfig-user2
+   ```
 
-​	一定要注意**双引号**......
+​ 一定要注意**双引号**......
 
-​	还有Git的`includeIf`指令通常建议在目录**路径末尾加上斜杠`/`**......
+​ 还有Git的`includeIf`指令通常建议在目录**路径末尾加上斜杠`/`**......
 
 ## 账号间的转移仓库
 
@@ -70,43 +68,33 @@ Gitee仓库管理>转移仓库>转移给成员
 
 注：地址名需要不一样
 
-
-
-
-
 ## commit撤销
 
-```
+```bash
 git reset --soft HEAD^
 ```
 
 HEAD^ 表示上一个版本，即上一次的commit，也可以写成HEAD~1
 如果进行两次的commit，想要都撤回，可以使用HEAD~2
-–soft  不删除工作空间的改动代码 ，撤销commit，不撤销git add file
-
-
+–soft 不删除工作空间的改动代码 ，撤销commit，不撤销git add file
 
 ## 远端仓库改名后本地操作
 
 1. 查看当前远端仓库名
 
-    ```
-    git remote -v
-    ```
+   ```bash
+   git remote -v
+   ```
 
 2. 修改
 
-    ```
-    git remote set-url origin xxxxx.git
-    ```
+   ```bash
+   git remote set-url origin xxxxx.git
+   ```
 
 3. 尝试push
 
-
-
 ## [Git 如何使用Git将一个分支中的更改复制到另一个分支](https://geek-docs.com/git/git-questions/1864_git_copy_changes_from_one_branch_to_another.html)
-
-
 
 ## GitHub Pages
 
@@ -117,8 +105,6 @@ HEAD^ 表示上一个版本，即上一次的commit，也可以写成HEAD~1
 [解决 Git 连接时出现 Permission denied (publickey)的解决指南 - 知乎](https://zhuanlan.zhihu.com/p/26606674562)
 
 IdentitiesOnly yes
-
-
 
 ## 镜像+双平台同步
 

@@ -1,4 +1,6 @@
-```
+#
+
+```pwsh
 (base) PS C:\Users\lenovo> $PSVersionTable
 
 Name                           Value
@@ -28,7 +30,7 @@ InternetOpenUrl() failed.
 
 重启终端之后，验证安装
 
-```
+```pwsh
 (base) PS C:\Users\lenovo> pwsh
 PowerShell 7.6.1
 PS C:\Users\lenovo> $PSVersionTable
@@ -49,15 +51,11 @@ WSManStackVersion              3.0
 再改一下默认启动
 ![image-20260514200156597](assets/image-20260514200156597.png)
 
-
-
-（检查wsl前置条件）：bios CPU虚拟化等等https://github.com/ForeverDreamer/video-creation-x-tutorials/releases/tag/wsl2-setup-v1.0
+（检查wsl前置条件）：bios CPU虚拟化等等<https://github.com/ForeverDreamer/video-creation-x-tutorials/releases/tag/wsl2-setup-v1.0>
 
 脚本检查
 
 ![image-20260514203705324](assets/image-20260514203705324.png)
-
-
 
 然后就是wsl2安装：`wsl --install`自动包含安装ubuntu，再重启
 
@@ -67,11 +65,7 @@ WSManStackVersion              3.0
 
 安装完毕后自动进入
 
-
-
 平时启动：`wsl -d Ubuntu-26.04`或者直接打开ubuntu终端
-
-
 
 **查看**系统版本信息
 
@@ -96,14 +90,14 @@ LOGO=ubuntu-logo
 
 查看.wslconfig是否存在
 
-```
+```pwsh
 PS C:\Users\lenovo> Test-Path $env:USERPROFILE\.wslconfig
 True
 ```
 
 当前内存
 
-```
+```bash
 root@LAPTOP-PGIP7SFO:/mnt/c/Users/lenovo# free -h
                total        used        free      shared  buff/cache   available
 Mem:           3.8Gi       690Mi       2.0Gi       4.4Mi       1.2Gi       3.2Gi
@@ -118,17 +112,15 @@ Swap:          4.0Gi          0B       4.0Gi
 
 ![image-20260514204003402](assets/image-20260514204003402.png)
 
-此时内存：存在内核保留，所以实际是比预设低一些 e.g. 26→25 
+此时内存：存在内核保留，所以实际是比预设低一些 e.g. 26→25
 
 cpu核相同
 
-<img src="assets/image-20260514204523557.png" alt="image-20260514204523557"  />
+[image-20260514204523557](assets/image-20260514204523557.png)
 
 发现一直没从root转成普通用户：`su - 普通用户名`
 
 ![image-20260514205119225](assets/image-20260514205119225.png)
-
-
 
 关于root与普通用户：
 
@@ -141,8 +133,6 @@ cpu核相同
 - 用 `>` 或 `>>` 重定向写入文件
 
 而 `cat`（查看）、`ls`（列表）、`pwd`（当前路径）这类命令只是**查看信息**，即使以 root 执行也完全无害。
-
-
 
 添加普通用户lenovo并设置为默认用户：
 
@@ -158,15 +148,9 @@ EOF
 
 然后wsl --shutdown重启
 
-
-
 设置一下普通用户vasant的终端配置，直接进入 `wsl.exe -d Ubuntu-26.04 -u vasant`
 
 ![image-20260514205800493](assets/image-20260514205800493.png)
-
-
-
-
 
 现在在vscode安装wsl拓展
 
@@ -212,5 +196,3 @@ source ~/.bashrc
 打开win c盘资源管理器`explorer.exe C:\\`
 
 打开linux当前目录`explorer.exe .`
-
-

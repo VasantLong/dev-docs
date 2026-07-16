@@ -1,6 +1,6 @@
+# CUDA
+
 [docker.io/nvidia/cuda 项目中国可用镜像列表 | 高速可靠的 Docker 镜像资源](https://docker.aityp.com/r/docker.io/nvidia/cuda)
-
-
 
 [Windows 下 Docker + WSL2 + NVIDIA GPU 完整配置指南（2026 最新实测） - 技术栈](https://jishuzhan.net/article/2043880165734940674)
 
@@ -18,27 +18,30 @@
 
 ![image-20260517010318524](assets/image-20260517010318524.png)
 
-
-
 ## ✅ 验证新镜像
 
 运行以下命令确认一切正常：
 
 ### 1. 基础 GPU 访问测试
+
 ```bash
 docker run --rm --gpus all nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 nvidia-smi
 ```
 
 ### 2. 确认 CUDA 版本
+
 ```bash
 docker run --rm --gpus all nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 printenv | grep CUDA_VERSION
 ```
 
 ### 3. 确认 cuDNN 版本
+
 ```bash
 docker run --rm --gpus all nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 cat /usr/include/cudnn_version.h | grep CUDNN_MAJOR -A 2
 ```
+
 或者更简单的方法：
+
 ```bash
 docker run --rm --gpus all nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 ldconfig -p | grep cudnn
 ```
@@ -49,24 +52,22 @@ docker run --rm --gpus all nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 ldconfig
 
 | 组件        | 状态 | 说明                                        |
 | ----------- | ---- | ------------------------------------------- |
-| CUDA 12.9.1 | ✅    | CUDA 运行时库                               |
-| cuDNN       | ✅    | NVIDIA 深度学习优化库                       |
-| TensorRT    | ❌    | 不包含（推理优化库，可选）                  |
-| nvcc 编译器 | ❌    | 不包含（PyTorch/TensorFlow 预编译包不需要） |
-| nvidia-smi  | ✅    | GPU 监控工具                                |
-
-
-
-
+| CUDA 12.9.1 | ✅   | CUDA 运行时库                               |
+| cuDNN       | ✅   | NVIDIA 深度学习优化库                       |
+| TensorRT    | ❌   | 不包含（推理优化库，可选）                  |
+| nvcc 编译器 | ❌   | 不包含（PyTorch/TensorFlow 预编译包不需要） |
+| nvidia-smi  | ✅   | GPU 监控工具                                |
 
 ## 📝 常用操作
 
 ### 查看已安装的镜像
+
 ```bash
 docker images | grep nvidia/cuda
 ```
 
 ### 运行交互式容器（便于开发）
+
 ```bash
 docker run --rm --gpus all -it \
   -v /home/vasant/projects:/workspace \
@@ -75,6 +76,7 @@ docker run --rm --gpus all -it \
 ```
 
 ### 清理测试过的临时容器
+
 ```bash
 # 查看所有容器（包括已停止的）
 docker ps -a
@@ -90,12 +92,15 @@ docker container prune
 ## ✅ 验证结果分析
 
 ### CUDA 版本：成功
-```
+
+```txt
 CUDA_VERSION=12.9.1  ✅
 ```
 
 ### cuDNN 验证：成功
+
 `ldconfig -p | grep cudnn` 显示了所有 cuDNN 9.x 的共享库：
+
 - ✅ `libcudnn.so.9` - 主库
 - ✅ `libcudnn_cnn.so.9` - CNN 操作
 - ✅ `libcudnn_ops.so.9` - 基础操作
@@ -108,15 +113,16 @@ CUDA_VERSION=12.9.1  ✅
 
 | 镜像类型  | 包含 .so 库 | 包含 .h 头文件 | 包含 nvcc | 适用场景             |
 | --------- | ----------- | -------------- | --------- | -------------------- |
-| `runtime` | ✅           | ❌              | ❌         | **运行深度学习程序** |
-| `devel`   | ✅           | ✅              | ✅         | 编译 CUDA 扩展       |
-| `base`    | 部分        | ❌              | ❌         | 最小化运行           |
+| `runtime` | ✅          | ❌             | ❌        | **运行深度学习程序** |
+| `devel`   | ✅          | ✅             | ✅        | 编译 CUDA 扩展       |
+| `base`    | 部分        | ❌             | ❌        | 最小化运行           |
 
 **你的 `cudnn-runtime` 镜像已经满足 99% 的深度学习需求。**
 
 ## 🚀 实际深度学习测试
 
 ### 1. 快速测试 PyTorch（推荐）
+
 ```bash
 # 基于你的镜像安装 PyTorch
 docker run --rm --gpus all -it nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 bash
@@ -131,6 +137,7 @@ python3 -c "import torch; print(f'CUDA: {torch.cuda.is_available()}'); print(f'G
 ```
 
 ### 2. 运行完整的 PyTorch 官方镜像（更方便）
+
 ```bash
 # 直接使用包含 PyTorch 的镜像
 docker pull pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
@@ -140,6 +147,7 @@ docker run --rm --gpus all pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime python3
 ```
 
 ### 3. TensorFlow 测试
+
 ```bash
 docker run --rm --gpus all -it tensorflow/tensorflow:2.16.1-gpu bash
 
@@ -163,14 +171,15 @@ docker run --rm --gpus all nvidia/cuda:12.9.1-cudnn-runtime-ubuntu24.04 bash -c 
 
 你的环境状态：
 
-| 组件            | 状态   | 验证方法                     |
-| --------------- | ------ | ---------------------------- |
+| 组件            | 状态    | 验证方法                     |
+| --------------- | ------- | ---------------------------- |
 | Docker GPU 访问 | ✅ 正常 | `nvidia-smi` 成功            |
 | CUDA 12.9.1     | ✅ 正常 | `CUDA_VERSION=12.9.1`        |
 | cuDNN 9.x       | ✅ 正常 | `ldconfig` 显示所有 .so 文件 |
 | 深度学习准备    | ✅ 就绪 | 可安装 PyTorch/TensorFlow    |
 
 **你现在可以：**
+
 1. 直接使用这个镜像安装深度学习框架
 2. 或者使用 PyTorch/TensorFlow 官方镜像（更简单）
 3. 运行需要 GPU 加速的任何容器化应用

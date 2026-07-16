@@ -9,15 +9,19 @@
 ## 一、基础环境确认
 
 ### 1.1 确认 WSL2 与Docker Desktop
+
 在 Windows PowerShell 中执行：
+
 ```powershell
 wsl --list --verbose
 ```
+
 确保 Ubuntu-26.04 为 `Running` 状态，且 Version 为 `2`。
 
 ![image-20260516183247019](assets/image-20260516183247019.png)
 
 如果不是 WSL2，升级：
+
 ```powershell
 wsl --set-version Ubuntu-26.04 2
 ```
@@ -29,6 +33,7 @@ wsl --set-version Ubuntu-26.04 2
 WSL2 安装后默认创建的是一个**普通用户**（你安装时设置的用户名），**不是 root**。
 
 **查看当前用户**：
+
 ```bash
 whoami
 # 输出你的用户名，不是 root
@@ -43,6 +48,7 @@ whoami
 - **严禁以 root 身份运行日常开发命令**，否则会导致文件权限混乱（root 创建的文件普通用户改不了）
 
 **遇到权限错误时**：
+
 ```bash
 # 不要 sudo 硬来，先看文件归属
 ls -la
@@ -52,12 +58,14 @@ sudo chown -R $USER:$USER ~/某目录
 ```
 
 **Claude Code Agent 安全提醒**：
+
 - 在项目目录启动 `claude`，它继承的是**当前用户权限**
 - 它能读写的范围等同于你这个用户能访问的范围
 - 只要不 `sudo claude`，Agent 就无法执行需要 root 的操作
 - **如果 Claude Code 请求执行 `sudo` 命令，务必人工审查**
 
 **sudo 安全原则**：
+
 - 默认 sudo 需要输入密码（WSL2 默认行为）
 - 不要在脚本或配置里免密 sudo
 - Agent 建议的 sudo 命令，先在脑子里过一遍再执行
@@ -98,8 +106,6 @@ Ubuntu 代号是 **resolute**（对应 26.04 LTS）
 
 ![image-20260515213235356](assets/image-20260515213235356.png)
 
-
-
 ### 2.2 创建项目目录结构
 
 ```bash
@@ -115,6 +121,7 @@ mkdir -p ~/projects/work       # 工作项目（如需）
 ## 三、开发工具安装
 
 ### 3.1 Node.js（通过 nvm）
+
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 # 关闭并重新打开终端，或执行：
@@ -129,7 +136,7 @@ source ~/.bashrc
 
 > 失败流程
 >
-> `nslookup github.com 114.114.114.114`找GitHub IP 
+> `nslookup github.com 114.114.114.114`找GitHub IP
 >
 > ![image-20260515184529103](assets/image-20260515184529103.png)
 >
@@ -182,7 +189,7 @@ source ~/.bashrc
 
 ```bash
 nvm install 24
-node -v 
+node -v
 npm -v
 ```
 
@@ -227,10 +234,10 @@ Claude Code 的模型配置保存在 `~/.claude.json` 中。你可以通过 CC S
 
 **CC Switch** 是一个**开源桌面应用**，用于统一管理多个 AI 编程 CLI（Claude Code、Codex、Gemini CLI、OpenCode、OpenClaw）的供应商配置。它把 API Key、模型选择、MCP/Skills 同步、会话管理等收进一个图形界面，避免手动编辑 JSON、TOML 或 .env 文件。
 
-- **官网**：https://ccswitch.io/zh/
-- **GitHub**：https://github.com/farion1231/cc-switch
+- **官网**：<https://ccswitch.io/zh/>
+- **GitHub**：<https://github.com/farion1231/cc-switch>
 
-- **安装位置**：CC Switch **必须安装在 WSL2  内部**（Linux 端），而不是 Windows 侧。因为我claude code安到 WSL2里了
+- **安装位置**：CC Switch **必须安装在 WSL2 内部**（Linux 端），而不是 Windows 侧。因为我claude code安到 WSL2里了
 - **图形界面**：安装后，它会通过 WSL2 自带的 **WSLg** 功能在 Windows 桌面上显示完整的图形界面，与 Windows 原生应用体验一致。
 
 ### 4.2 前置
@@ -265,7 +272,7 @@ sudo apt-get install -y nodejs
 
 在 WSL2 Ubuntu 终端中，进入临时目录并下载最新的 Linux 版 `.deb` 安装包：
 
-> **获取最新版本号**：打开 https://github.com/farion1231/cc-switch/releases ，查看最新的 `CC-Switch-v{版本号}-Linux.deb` 文件名，替换上面命令中的版本号。wget没安装成功
+> **获取最新版本号**：打开 <https://github.com/farion1231/cc-switch/releases> ，查看最新的 `CC-Switch-v{版本号}-Linux.deb` 文件名，替换上面命令中的版本号。wget没安装成功
 
 ```bash
 # 使用 dpkg 安装 .deb 包
@@ -285,7 +292,8 @@ which cc-switch
 # 应输出类似 /usr/bin/cc-switch 的路径
 ```
 
-####  运行
+#### 运行
+
 ```bash
 cc-switch
 ```
@@ -323,19 +331,15 @@ echo 'cc-switch &>/dev/null &' >> ~/.bashrc
 sudo apt remove cc-switch
 ```
 
-
-
 wsl链接代理（好像没用）
 
 ![image-20260515221320297](assets/image-20260515221320297.png)
-
-
 
 #### GitHub hosts
 
 `sudo nano /etc/hosts`文件内添加
 
-```
+```bash
 140.82.113.4    github.com
 140.82.113.4    gist.github.com
 185.199.108.153 assets-cdn.github.com
@@ -352,7 +356,7 @@ wsl链接代理（好像没用）
 
 刚发现公钥好像没整
 
-```
+```bash
 # 1. 测试 DNS 解析
 nslookup github.com
 
@@ -368,19 +372,17 @@ git ls-remote https://github.com/user/repo.git  # HTTPS 方式
 
 `git config --global url."git@github.com:".insteadOf "https://github.com/"`
 
-
-
 测试与GitHub连接
 
 ![image-20260515225728373](assets/image-20260515225728373.png)
 
-> 第1跳: 192.168.3.1     - 你的路由器 (正常)
-> 第2跳: 192.168.18.1    - 可能是光猫/上级设备 (正常)
-> 第3跳: 172.16.128.1    - 运营商内网 (开始出现丢包 *)
-> 第6跳: 219.158.113.49  - 中国联通骨干网
+> 第1跳: 192.168.3.1 - 你的路由器 (正常)
+> 第2跳: 192.168.18.1 - 可能是光猫/上级设备 (正常)
+> 第3跳: 172.16.128.1 - 运营商内网 (开始出现丢包 \*)
+> 第6跳: 219.158.113.49 - 中国联通骨干网
 > 第11跳: 104.44.235.186 - 微软网络 (GitHub 使用 Azure)
-> 第15跳: 104.44.20.51   - 接近目标
-> 第18跳: 51.10.12.48    - GitHub 服务器段
+> 第15跳: 104.44.20.51 - 接近目标
+> 第18跳: 51.10.12.48 - GitHub 服务器段
 >
 > 大量 `* * *` 表示中间节点不响应 ICMP，但流量实际到达了。`curl` 失败是因为 HTTPS 443 端口被拦截。你的路由器（`192.168.3.1`）可能在 **应用层** 对 HTTPS 流量进行过滤，允许 ICMP (traceroute/SSH) 但拦截 HTTPS 请求中的某些特征。
 
@@ -413,11 +415,14 @@ ssh-keygen -t ed25519 -C "工作邮箱@company.com" -f ~/.ssh/id_ed25519_work
 ![image-20260516190856248](assets/image-20260516190856248.png)
 
 ### 5.2 配置 SSH Config
+
 ```bash
 nano ~/.ssh/config
 ```
+
 写入：
-```
+
+```bash
 # 个人 GitHub
 Host github.com-personal
     HostName github.com
@@ -432,6 +437,7 @@ Host github.com-work
 ```
 
 验证：
+
 ```bash
 ssh -T git@github.com-personal
 ssh -T git@github.com-work
@@ -460,10 +466,13 @@ EOF
 ```
 
 ### 5.4 编辑主 Git 配置
+
 ```bash
 nano ~/.gitconfig
 ```
+
 写入：
+
 ```ini
 [alias]
     lg = log --oneline --graph --decorate --all
@@ -488,6 +497,7 @@ nano ~/.gitconfig
 > **重要**：将 `你的用户名` 替换为实际用户名，路径末尾 `/` 不能省。
 
 ### 5.5 验证多账号配置
+
 ```bash
 # 创建测试仓库
 cd ~/projects/personal && mkdir test && cd test && git init
@@ -500,11 +510,11 @@ rm -rf ~/projects/personal/test ~/projects/work/test
 
 ![image-20260516124119843](assets/image-20260516124119843.png)
 
-ubuntu里的git最新版本是2.54.0  [Git - Install for Linux](https://git-scm.com/install/linux)
+ubuntu里的git最新版本是2.54.0 [Git - Install for Linux](https://git-scm.com/install/linux)
 
 ### 5.6 Git Clone 注意事项
 
-**① 路径必须在 WSL2 内部**
+#### **① 路径必须在 WSL2 内部**
 
 ```bash
 # 正确：先进入 WSL2 文件系统
@@ -515,9 +525,10 @@ git clone git@github.com-personal:用户名/仓库.git
 # cd /mnt/c/Users/...  ← 不要这样做
 ```
 
-**② 使用 SSH 别名克隆**
+#### **② 使用 SSH 别名克隆**
 
 克隆时必须使用 `~/.ssh/config` 中定义的 Host 别名，否则无法匹配对应的 SSH 密钥：
+
 ```bash
 # 个人项目
 git clone git@github.com-personal:用户名/个人仓库.git
@@ -526,13 +537,15 @@ git clone git@github.com-personal:用户名/个人仓库.git
 git clone git@github.com-work:公司名/工作仓库.git
 ```
 
-**③ 克隆后检查行尾符**
+#### **③ 克隆后检查行尾符**
+
 ```bash
 cd 仓库名
 git config core.autocrlf input
 ```
 
-**④ 验证用户身份**
+#### **④ 验证用户身份**
+
 ```bash
 git config user.name   # 确认输出与你期望的账号一致
 git config user.email
@@ -545,11 +558,13 @@ git config user.email
 ## 六、VS Code 集成
 
 ### 6.1 安装 Remote-WSL 扩展
+
 在 Windows 的 VS Code 中安装 **Remote - WSL** 扩展（Microsoft 官方）。
 
 ![image-20260516191554122](assets/image-20260516191554122.png)
 
 ### 6.2 使用方式
+
 在 WSL2 终端中任意目录`code .`即可进入
 
 VS Code 左下角会显示 `WSL: Ubuntu-26.04`，终端自动为 WSL2 bash。
@@ -566,7 +581,7 @@ VS Code 左下角会显示 `WSL: Ubuntu-26.04`，终端自动为 WSL2 bash。
 
 ### miniforge
 
-无奈在win端下载https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-x86_64.sh
+无奈在win端下载<https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-x86_64.sh>
 
 ```bash
 # 复制 Windows 下载的 Mambaforge（找地址）
@@ -584,7 +599,7 @@ bash ~/Miniforge3-Linux-x86_64.sh
 - `Enter` 确认安装位置（默认 `~/miniforge3`）
 - 输入 `yes` 允许初始化
 
-```
+```bash
 # 重新加载
 source ~/.bashrc
 
@@ -606,8 +621,9 @@ mamba create -n ml_project python=3.11 scikit-learn tensorflow -y
 jupyter lab
 ```
 
-```
 不用切环境，直接往指定环境装包：
+
+```bash
 mamba install -n ml tensorflow -y
 ```
 
@@ -616,6 +632,7 @@ mamba install -n ml tensorflow -y
 `mamba install ipykernel -y`
 
 > #### 以前的内核管理方式
+>
 > pip install ipykernel
 >
 > pip install pandas fastapi uvicorn
@@ -652,6 +669,7 @@ mamba install -n ml tensorflow -y
 ```bash
 jupyter lab --notebook-dir=~/projects
 ```
+
 Windows 浏览器访问 `http://localhost:8888`，新建 Notebook 后在右上角切换 Kernel。
 
 > 可在~/.bashrc中设置`alias jlab='jupyter lab --notebook-dir=~/projects'`定义一个常用工作路径，`source ~/.bashrc`之后用jlab运行
@@ -664,7 +682,8 @@ Windows 浏览器访问 `http://localhost:8888`，新建 Notebook 后在右上�
 ## （未测试）八、Docker 容器化 Jupyter 环境：特定项目使用方案
 
 ### 8.1 项目结构示例
-```
+
+```txt
 ~/projects/info-system/
 ├── docker-compose.yml
 ├── Dockerfile
@@ -673,6 +692,7 @@ Windows 浏览器访问 `http://localhost:8888`，新建 Notebook 后在右上�
 ```
 
 ### 8.2 Dockerfile 模板
+
 ```dockerfile
 FROM python:3.12-slim
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jupyterlab
@@ -684,8 +704,9 @@ CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-r
 ```
 
 ### 8.3 docker-compose.yml 模板
+
 ```yaml
-version: '3'
+version: "3"
 services:
   jupyter:
     build: .
@@ -694,13 +715,16 @@ services:
     volumes:
       - ./notebooks:/workspace
 ```
+
 > 不同项目使用不同宿主机端口，避免冲突（如 18888、28888）。
 
 ### 8.4 启动与访问
+
 ```bash
 cd ~/projects/info-system
 docker compose up -d
 ```
+
 浏览器访问 `http://localhost:18888`，输入 token `mysecret`。
 
 ---
@@ -722,19 +746,23 @@ docker compose up -d
 ## extra：安装回收站`trash-cli`
 
 在开始前，建议先在 WSL 终端里更新一下软件源：
+
 ```bash
 sudo apt update
 ```
 
 ### 安装（apt）
+
 这是最简单、最通用的方式，适用于 Ubuntu 的稳定发行版。
 
 ```bash
 sudo apt install trash-cli
 ```
+
 也可以通过 Pip 安装（获取更新版本）
 
 安装完，用下面命令看看是否成功：
+
 ```bash
 trash-put --version
 ```
@@ -743,10 +771,10 @@ trash-put --version
 
 最常用的几个命令：
 
--   **安全删除（移入回收站）**：`trash-put 文件名`
--   **查看回收站内容**：`trash-list`
--   **恢复文件**：`trash-restore` （会进入交互界面让你选择恢复哪个）
--   **清空回收站**：`trash-empty` （后面可加数字表示清空多少天前的，如 `trash-empty 7` 清空7天前的）
+- **安全删除（移入回收站）**：`trash-put 文件名`
+- **查看回收站内容**：`trash-list`
+- **恢复文件**：`trash-restore` （会进入交互界面让你选择恢复哪个）
+- **清空回收站**：`trash-empty` （后面可加数字表示清空多少天前的，如 `trash-empty 7` 清空7天前的）
 
 **小技巧**：如果你习惯用 `rm`，可以在 `~/.bashrc` 里加一行 `alias rm='trash-put'`，这样每次打 `rm` 其实都在安全删除。不过要小心别在没装这个工具的服务器上养成习惯。
 
@@ -755,30 +783,37 @@ trash-put --version
 以`/home/vasant/projects/personal/jupyter/Untitled.ipynb` 为例，演示 `trash-cli` 的核心操作。
 
 #### 1. 删除文件（移入回收站）
+
 将文件安全地移到回收站，而不是永久删除。
 
 ```bash
 trash-put /home/vasant/projects/personal/jupyter/Untitled.ipynb
 ```
+
 如果当前就在 `jupyter` 目录下，直接用相对路径也行：
+
 ```bash
 trash-put Untitled.ipynb
 ```
 
 #### 2. 查看回收站里的文件
+
 想确认是否删除成功，或者查看所有已删除的文件。
 
 ```bash
 trash-list
 ```
+
 输出包含完整路径和删除时间：
 
 ![image-20260516182605332](assets/image-20260516182605332.png)
 
 #### 3. 恢复文件
+
 ```bash
 trash-restore
 ```
+
 会列出所有被删文件
 
 ![image-20260516182647807](assets/image-20260516182647807.png)
@@ -786,6 +821,7 @@ trash-restore
 然后输入对应数字 `0` 并回车，文件就原路恢复了。
 
 #### 4. 清空回收站（真正的永久删除）
+
 如果确定这些文件不再需要了。
 
 ```bash
@@ -795,6 +831,7 @@ trash-empty
 # 只清空7天前删除的文件（7天内的会保留）
 trash-empty 7
 ```
+
 执行后，这些文件才被真正永久删除。
 
 ![image-20260516182834951](assets/image-20260516182834951.png)
@@ -814,7 +851,7 @@ trash-empty 7
 
 查看
 
-```
+```bash
 # 查看回收站里的文件和元数据
 ls -la /home/vasant/.local/share/Trash/files
 ls -la /home/vasant/.local/share/Trash/info
@@ -822,7 +859,7 @@ ls -la /home/vasant/.local/share/Trash/info
 
 ![image-20260516182736958](assets/image-20260516182736958.png)
 
-2. 文件在外部或挂载的分区（如 `/mnt/c`）
+1. 文件在外部或挂载的分区（如 `/mnt/c`）
 
 如果你删除 `/mnt/c/somefile.txt`（即 Windows 文件），`trash-cli` 会把文件移动到**那个分区的根目录**下的回收站里。
 
