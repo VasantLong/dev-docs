@@ -19,6 +19,8 @@ WSL2 开发环境配置指南与技术文档集合。
 - [GitHub SSH 配置](github.md) — 通过 HTTPS 端口 443 连接 GitHub SSH
 - [CUDA Docker 镜像](cuda.md) — NVIDIA CUDA Docker 镜像部署参考链接
 - [Win → WSL 文件迁移](dev.md) — Windows 文件迁移到 WSL 的方法
+- [SQL Server 自启管理](sqlserver.md) — 阻止 SQL Server 开机自启占用内存
+- [Typora + Markdown 入门](Typora_Markdown入门.md) — Markdown 语法笔记与编辑器推荐
 
 ## 项目
 
