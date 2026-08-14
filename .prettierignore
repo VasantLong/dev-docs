@@ -1,0 +1,11 @@
+# 机器生成/同步状态文件：由扩展（pi-skill-gate）、pi 或同步脚本以
+# JSON.stringify(..., 2) 重写（2空格、无末尾换行）。
+# prettier 统一跳过 → committed 状态 = 生成器输出，消除缩进拉锯
+# （skill-gate 计数、models-store 等每次会话都会变）。
+agent/config/skill-gate-analytics.json
+agent/config/skill-gate.json
+agent/models-store.json
+agent/models.json
+agent/settings.json
+agent/mcp.json
+web-search.json
