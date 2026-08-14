@@ -19,7 +19,7 @@
 
 使用命令安装
 
- "Docker Desktop Installer.exe" install --installation-dir="D:\Program Files\Docker"
+"Docker Desktop Installer.exe" install --installation-dir="D:\Program Files\Docker"
 
 1.由于windows安装docker强制安装到c盘，可以通过以下方式安装到其它盘
 
@@ -66,8 +66,8 @@ wsl --install
 wsl --import Ubuntu-24.04 D:\wsl\ubuntu24 D:\path\to\your\ubuntu-24.04-wsl-amd64.wsl --version 2
 ```
 
-- `Ubuntu-24.04`：给这个 WSL 发行版起的名称（可自定义）  
-- `D:\wsl\ubuntu24`：实际存放 WSL 系统文件的路径  
+- `Ubuntu-24.04`：给这个 WSL 发行版起的名称（可自定义）
+- `D:\wsl\ubuntu24`：实际存放 WSL 系统文件的路径
 - `D:\path\to\your\ubuntu-24.04-wsl-amd64.wsl`：你下载的 `.wsl` 文件的完整路径
 
 我的实际使用：`wsl --import Ubuntu-26.04 "D:\Docker\WSL\Ubuntu 26.04" "D:\Edge\ubuntu-26.04-wsl-amd64.wsl" --version 2`
@@ -114,7 +114,7 @@ root@LAPTOP-PGIP7SFO:/mnt/c/Users/lenovo# usermod -aG sudo vasant
 ```cmd
   C:\Users\lenovo>wsl -l -v
     NAME              STATE           VERSION
-  
+
   * docker-desktop    Stopped         2
     Ubuntu-26.04      Stopped         2
 ```
@@ -156,40 +156,40 @@ pageReporting = false #不允许内存回收
 
 1. **先创建 D 盘目标文件夹**：
 
-   ```txt
-   D:\Docker\Data
-   D:\Docker\WSL
-   ```
+    ```txt
+    D:\Docker\Data
+    D:\Docker\WSL
+    ```
 
 2. **正常安装 Docker Desktop**，安装完不要启动
 
 3. **立即以管理员身份运行 PowerShell**：
 
-   ```powershell
-   # 移动 AppData 中的 Docker 目录
-   $sourcePath = "$env:LOCALAPPDATA\Docker"
-   $targetPath = "D:\Docker\Data"
-   
-   if (!(Test-Path $sourcePath)) {
-       New-Item -ItemType Directory -Path $sourcePath -Force
-   }
-   
-   # 如果目标已存在数据，先移动
-   if (Test-Path $sourcePath) {
-       robocopy $sourcePath $targetPath /E /MOVE
-   }
-   
-   # 创建符号链接
-   cmd /c mklink /D $sourcePath $targetPath
-   
-   # 移动 WSL 存储位置
-   $wslConfig = @"
-   [wsl2]
-   memory=4GB
-   swap=4GB
-   "@
-   $wslConfig | Out-File -FilePath "$env:USERPROFILE\.wslconfig" -Encoding utf8
-   ```
+    ```powershell
+    # 移动 AppData 中的 Docker 目录
+    $sourcePath = "$env:LOCALAPPDATA\Docker"
+    $targetPath = "D:\Docker\Data"
+
+    if (!(Test-Path $sourcePath)) {
+        New-Item -ItemType Directory -Path $sourcePath -Force
+    }
+
+    # 如果目标已存在数据，先移动
+    if (Test-Path $sourcePath) {
+        robocopy $sourcePath $targetPath /E /MOVE
+    }
+
+    # 创建符号链接
+    cmd /c mklink /D $sourcePath $targetPath
+
+    # 移动 WSL 存储位置
+    $wslConfig = @"
+    [wsl2]
+    memory=4GB
+    swap=4GB
+    "@
+    $wslConfig | Out-File -FilePath "$env:USERPROFILE\.wslconfig" -Encoding utf8
+    ```
 
 ​ 运行过程：
 
@@ -319,7 +319,7 @@ Installs Docker Desktop
 结果安装失败：
 
 ```cmd
-Component Docker.Installer.EnableFeaturesAction failed: Failed to install features with exit code 14098: 
+Component Docker.Installer.EnableFeaturesAction failed: Failed to install features with exit code 14098:
 部署映像服务和管理工具
 版本: 10.0.26100.1150
 
@@ -327,18 +327,18 @@ Component Docker.Installer.EnableFeaturesAction failed: Failed to install featur
 
 启用一个或多个功能
 
-[                           0.1%                           ] 
+[                           0.1%                           ]
 
-[                           1.1%                           ] 
+[                           1.1%                           ]
 
-[=                          2.1%                           ] 
+[=                          2.1%                           ]
 ...
 
-[===========================73.3%==========                ] 
+[===========================73.3%==========                ]
 
-[===========================74.3%===========               ] 
+[===========================74.3%===========               ]
 
-[==========================100.0%==========================] 
+[==========================100.0%==========================]
 
 错误: 14098
 
@@ -449,7 +449,7 @@ DISM /Online /Cleanup-Image /RestoreHealth /Source:D:\Edge\Win11_25H2_Chinese_Si
 docker desktop安装过程中的弹窗 估计是之前powershell的命令还在生效，但是wsl和ubuntu不在d盘了
 
 ```bash
-configuring docker in Ubuntu-26.04: docker cli config: failed to write file: running wslexec: An error occurred while running the command. Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_PATH_NOT_FOUND: c:\windows\system32\wsl.exe -d ubuntu-26.04 -e sh -c cat - > ~/.docker/config.json: exit status 0xffffffff (stderr: , stdout: 无法将磁盘“D:\Docker\WSL\Ubuntu 26.04\ext4.vhdx”附加到 WSL2: 系统找不到指定的路径。 
+configuring docker in Ubuntu-26.04: docker cli config: failed to write file: running wslexec: An error occurred while running the command. Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_PATH_NOT_FOUND: c:\windows\system32\wsl.exe -d ubuntu-26.04 -e sh -c cat - > ~/.docker/config.json: exit status 0xffffffff (stderr: , stdout: 无法将磁盘“D:\Docker\WSL\Ubuntu 26.04\ext4.vhdx”附加到 WSL2: 系统找不到指定的路径。
 错误代码: Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_PATH_NOT_FOUND
 , wslErrorCode: Wsl/Service/CreateInstance/MountDisk/HCS/ERROR_PATH_NOT_FOUND)
 ```
@@ -523,18 +523,18 @@ deamon.json配置：
 
 ```json
 {
-  "builder": {
-    "gc": {
-      "defaultKeepStorage": "20GB",
-      "enabled": true
-    }
-  },
-  "experimental": false,
-  "registry-mirrors": [
-    "https://docker.1ms.run",
-    "https://docker.1panel.live",
-    "https://hub.rat.dev"
-  ]
+	"builder": {
+		"gc": {
+			"defaultKeepStorage": "20GB",
+			"enabled": true
+		}
+	},
+	"experimental": false,
+	"registry-mirrors": [
+		"https://docker.1ms.run",
+		"https://docker.1panel.live",
+		"https://hub.rat.dev"
+	]
 }
 ```
 
@@ -544,11 +544,11 @@ deamon.json配置：
 
 - **`gc` (垃圾回收)**
   自动清理不再使用的构建缓存，避免磁盘占满。
-  - **`enabled: true`**
-    开启构建缓存的自动垃圾回收。
-  - **`defaultKeepStorage: "20GB"`**
-    保留最近使用的构建缓存总量不超过 20 GB。
-    超过此限制时，Docker 会删除最旧的缓存，保留最近使用部分。
+    - **`enabled: true`**
+      开启构建缓存的自动垃圾回收。
+    - **`defaultKeepStorage: "20GB"`**
+      保留最近使用的构建缓存总量不超过 20 GB。
+      超过此限制时，Docker 会删除最旧的缓存，保留最近使用部分。
 
 > 这对频繁构建镜像的环境很有用，防止 `/var/lib/docker` 无限膨胀。
 
@@ -563,7 +563,7 @@ deamon.json配置：
 
 Docker Hub 拉取镜像时，优先使用这里配置的国内/第三方镜像代理，提升下载速度。
 
-*镜像源：轩辕的免费版用着说Error response from daemon: unable to fetch descriptor (sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11) which reports content size of zero: invalid argument，就换掉了*
+_镜像源：轩辕的免费版用着说Error response from daemon: unable to fetch descriptor (sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11) which reports content size of zero: invalid argument，就换掉了_
 
 ```bash
 root@LAPTOP-PGIP7SFO:~# docker run hello-world

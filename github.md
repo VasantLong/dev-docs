@@ -34,27 +34,27 @@ ssh-agent bash
 1. 创建多个账户配置文件
    git bash输入以下命令创建user文件：
 
-   ```bash
-   touch ~/.gitconfig-user1
-   touch ~/.gitconfig-user2
-   ```
+    ```bash
+    touch ~/.gitconfig-user1
+    touch ~/.gitconfig-user2
+    ```
 
 2. 打开”~/.gitconfig-user1″文件，输入以下内容：
 
-   ```cfg
-   [user]
-       name = User1
-       email = user1@example.com
-   ```
+    ```cfg
+    [user]
+        name = User1
+        email = user1@example.com
+    ```
 
 3. 在C:/Users/lenovo/.gitconfig中配置：
 
-   ```cfg
-   [includeIf "gitdir:/home/yourusername/path/to/your/repo1/"]
-       path = /home/yourusername/.gitconfig-user1
-   [includeIf "gitdir:/home/yourusername/path/to/your/repo2/"]
-       path = /home/yourusername/.gitconfig-user2
-   ```
+    ```cfg
+    [includeIf "gitdir:/home/yourusername/path/to/your/repo1/"]
+        path = /home/yourusername/.gitconfig-user1
+    [includeIf "gitdir:/home/yourusername/path/to/your/repo2/"]
+        path = /home/yourusername/.gitconfig-user2
+    ```
 
 ​ 一定要注意**双引号**......
 
@@ -74,23 +74,23 @@ Gitee仓库管理>转移仓库>转移给成员
 git reset --soft HEAD^
 ```
 
-HEAD^ 表示上一个版本，即上一次的commit，也可以写成HEAD~1
-如果进行两次的commit，想要都撤回，可以使用HEAD~2
+HEAD^ 表示上一个版本，即上一次的commit，也可以写成HEAD~~1
+如果进行两次的commit，想要都撤回，可以使用HEAD~~2
 –soft 不删除工作空间的改动代码 ，撤销commit，不撤销git add file
 
 ## 远端仓库改名后本地操作
 
 1. 查看当前远端仓库名
 
-   ```bash
-   git remote -v
-   ```
+    ```bash
+    git remote -v
+    ```
 
 2. 修改
 
-   ```bash
-   git remote set-url origin xxxxx.git
-   ```
+    ```bash
+    git remote set-url origin xxxxx.git
+    ```
 
 3. 尝试push
 

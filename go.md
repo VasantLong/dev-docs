@@ -8,19 +8,19 @@
 
 2. 执行构建和启动命令：
 
-   ```Bash
-   docker-compose up --build -d
-   ```
+    ```Bash
+    docker-compose up --build -d
+    ```
 
 ### 验证和访问
 
 1. **查看容器状态**:
 
-   ```Bash
-   docker-compose ps
-   ```
+    ```Bash
+    docker-compose ps
+    ```
 
-   您应该能看到 `gomusic-mysql`, `gomusic-redis`, `gomusic-backend`, `gomusic-frontend` 四个容器正在运行 (`Up` 状态)。
+    您应该能看到 `gomusic-mysql`, `gomusic-redis`, `gomusic-backend`, `gomusic-frontend` 四个容器正在运行 (`Up` 状态)。
 
 2. **访问应用**: 打开您的浏览器，访问 **`http://localhost:8080`**。
 
@@ -45,11 +45,11 @@ wsl更新太慢了用github镜像
 在您的项目根目录 (`D:\WEB\GoMusic\`) 下，`docker-compose up` 命令会自动创建两个新的文件夹：
 
 - `D:\WEB\GoMusic\mysql-data\`
-  - **作用**：这个文件夹存放着 **MySQL 数据库的所有数据**。包括您创建的表、插入的歌曲信息等，都会以文件的形式保存在这里。
-  - **特点**：这是“持久化”数据。即使您运行 `docker-compose down` 删除了 MySQL 容器，这个文件夹和里面的数据**依然会保留**。下次您再次运行 `docker-compose up`，新的 MySQL 容器会重新加载这里的数据，您的所有记录都不会丢失。
+    - **作用**：这个文件夹存放着 **MySQL 数据库的所有数据**。包括您创建的表、插入的歌曲信息等，都会以文件的形式保存在这里。
+    - **特点**：这是“持久化”数据。即使您运行 `docker-compose down` 删除了 MySQL 容器，这个文件夹和里面的数据**依然会保留**。下次您再次运行 `docker-compose up`，新的 MySQL 容器会重新加载这里的数据，您的所有记录都不会丢失。
 - `D:\WEB\GoMusic\redis-data\`
-  - **作用**：同理，这个文件夹存放着 **Redis 的所有持久化数据**。
-  - **特点**：和 MySQL 数据一样，这也是持久化的。
+    - **作用**：同理，这个文件夹存放着 **Redis 的所有持久化数据**。
+    - **特点**：和 MySQL 数据一样，这也是持久化的。
 
 > **小结**：这两个文件夹是您应用的核心数据。如果您需要备份数据库，直接备份 `mysql-data` 文件夹即可。
 
@@ -60,11 +60,11 @@ wsl更新太慢了用github镜像
 这部分数据由 Docker Desktop 在后台统一管理，普通用户一般不需要直接操作这些文件。它们存储在一个比较深的位置。对于标准的 Windows + Docker Desktop (使用 WSL 2 后端) 安装，这些文件位于：
 
 - **Docker 镜像 (Images)**：
-  - 您 `build` 出来的 `gomusic-backend` 和 `gomusic-frontend` 镜像，以及您 `pull` 下来的 `mysql`、`redis`、`golang`、`node` 等基础镜像，都存储在这里。
+    - 您 `build` 出来的 `gomusic-backend` 和 `gomusic-frontend` 镜像，以及您 `pull` 下来的 `mysql`、`redis`、`golang`、`node` 等基础镜像，都存储在这里。
 - **Docker 容器 (Containers)**：
-  - 当容器运行时，它本身的文件系统、日志等非持久化的数据也在这里。当您删除容器 (`docker-compose down`)，这部分数据就会被清理掉。
+    - 当容器运行时，它本身的文件系统、日志等非持久化的数据也在这里。当您删除容器 (`docker-compose down`)，这部分数据就会被清理掉。
 - **Docker 卷 (Volumes)**：
-  - 除了我们上面提到的文件夹映射方式，Docker 还有一种自己管理的“命名卷”，也会存在这里。
+    - 除了我们上面提到的文件夹映射方式，Docker 还有一种自己管理的“命名卷”，也会存在这里。
 
 **它们在电脑上的具体位置是在一个虚拟硬盘文件 (`.vhdx`) 中**。您可以在文件资源管理器中，通过以下路径找到它：
 
